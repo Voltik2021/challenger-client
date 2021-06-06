@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function Login(){
+export default function Login(props){
     return (
-        <form>
+        <form onSubmit = {(e) => props.doLogin(e)}>            
             <label>
                 Login
                 <input type = 'text' name='login'/>
@@ -11,7 +11,7 @@ export default function Login(){
                 Password
                 <input type = 'password' name='password'/>
             </label>
-            <button>Войти</button>    
+            <button >Войти</button>    
 
         </form>
     )
