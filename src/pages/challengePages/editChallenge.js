@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import { Redirect } from 'react-router';
 import {getChallenge, changeChalleng} from '../../APIServise';
 
 
@@ -37,7 +36,7 @@ export default function editChallenge({match}) {
                 Награда
                 <input type = 'text' name = 'prise' defaultValue = {challenge.prise}/>  
             </label> <br/>         
-            <button>Редактировать Челендж</button>            
+            <button onClick = {() => {window.location.href = '/'}}>Редактировать Челендж</button>            
         </form>
     )
 }

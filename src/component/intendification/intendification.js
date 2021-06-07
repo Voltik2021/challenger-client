@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
-import { Link, Route} from 'react-router-dom';
+import { Link, Route, Switch} from 'react-router-dom';
 import Login from '../login/login';
 import Registration from '../registration/regisration'
 
-export default function Intendification(props){    
+export default function Intendification(){    
 
     return (        
         <div>           
             <div>
-                <Link to ='/user/login'>Log in</Link>
-                <Link to = '/user/registration'>Registration</Link>
+                <Link to ='/intedification/login'>Log in</Link>
+                <Link to = '/intedification/registration'>Registration</Link>
             </div>
-            <Route path = '/user/login' > 
-                <Login doLogin = {props.doLogin}/>
-            </Route>        
-            <Route path = '/user/registration' component ={Registration}/>
-
+            <Switch>
+                <Route path = '/intedification/login' component ={Login}/>                  
+                <Route path = '/intedification/registration' component ={Registration}/>
+            </Switch>
             
             
             

@@ -21,7 +21,13 @@ export function login(login, password) {
             password: password                        
         })
     })
-    .then(res => res.json())
+    .then(res =>{ 
+        console.log(res)
+        if (res.status === 500) {
+            alert('неверный логин или пароль')        }
+        return res.json()
+    })
+    .catch(err => console.log(err))
 }
 
 export function unlogin() {
@@ -29,7 +35,8 @@ export function unlogin() {
     .then(res => res.json())
 }
 
-export function createChalleng(title, description, prise, term,) {
+export function createChalleng(title, description, prise, term, id_offer_user, name_offer_user) {
+    console.log(id_offer_user, name_offer_user)
     return fetch(`http://localhost:3000/createChalleng?token=${localStorage.getItem('token')}`,{
     method: 'POST',
     headers: {'Content-type': 'application/json'},
@@ -37,7 +44,9 @@ export function createChalleng(title, description, prise, term,) {
         title: title,        
         description: description,
         prise: prise,
-        term: term       
+        term: term,
+        to: id_offer_user,
+        whoWasOffered: name_offer_user
     })
     })
     .then(res => res.json())
@@ -64,5 +73,10 @@ export function changeChalleng(title, description, prise, term, id) {
         term: term       
     })
     })
+    .then(res => res.json())
+}
+
+export function searchUser(name) {
+    return fetch(`http://localhost:3000/searchUser?token=${localStorage.getItem('token')}&name=${name}`)
     .then(res => res.json())
 }
