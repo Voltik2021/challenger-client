@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getChallenge, changeChalleng, deleteChallenge} from '../../APIServise';
+import {getChallenge, changeChalleng, refuseExecute} from '../../APIServise';
 
 
 
@@ -20,15 +20,14 @@ export default function editChallenge({match}) {
         })
     }
 
-    let doDeleteChallenge = () => {
-        deleteChallenge(paramsId.id).then(() => window.location.href = '/')
+    let doRefuseExecute = () => {
+        refuseExecute(paramsId.id).then(data => console.log(data))
     }
+
+    
     
     return (
-        <>
-            <div>
-                <button onClick ={doDeleteChallenge}>Удалить</button>
-            </div>
+        <>            
             <form onSubmit = {(e) => doChangeChallenge(e)}>            
                 <label>
                     Название челленджа          
@@ -46,7 +45,10 @@ export default function editChallenge({match}) {
                     Награда
                     <input type = 'text' name = 'prise' defaultValue = {challenge.prise}/>  
                 </label> <br/>         
-                <button onClick = {() => {window.location.href = '/'}}>Редактировать Челендж</button>            
+                <button onClick = {() => {window.location.href = '/'}}>Редактировать Челендж</button>
+                <div>
+                    <button onClick ={doRefuseExecute}>Отказаться от выполнения</button>
+                </div>            
             </form>
         </>
     )

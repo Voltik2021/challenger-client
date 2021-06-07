@@ -80,3 +80,21 @@ export function searchUser(name) {
     return fetch(`http://localhost:3000/searchUser?token=${localStorage.getItem('token')}&name=${name}`)
     .then(res => res.json())
 }
+
+
+export function deleteChallenge(id) {
+    return fetch(`http://localhost:3000/deleteChallenge?token=${localStorage.getItem('token')}&id=${id}`, {
+        method: 'DELETE'
+    })
+    .then(res => res.json())
+}
+
+export function getOfferChallenge() {
+    return fetch(`http://localhost:3000/getOfferChallenge?token=${localStorage.getItem('token')}`)
+    .then(res => res.json())
+}
+
+export function refuseExecute(id) {
+    return fetch(`http://localhost:3000/refuseExecute?token=${localStorage.getItem('token')}&id=${id}`)
+    .then(res => res.json())
+}

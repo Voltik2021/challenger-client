@@ -6,6 +6,7 @@ import {unlogin, searchUser} from '../../APIServise'
 import { Link } from 'react-router-dom';
 import  ListMyChallenge  from '../ListMyChallenge/ListMyChallenge';
 import editChallenge from '../../pages/challengePages/editChallenge';
+import ListOfferChallenge from '../ListOffertChallenge/ListOffertChallenge'
 
 
 
@@ -36,7 +37,14 @@ export default function MainPages(){
                     <button> Искать</button>
                 </label>
             </form>
-            <ListMyChallenge/>        
+            <div>
+                <p>Мои челленджи</p>
+                <ListMyChallenge/> 
+            </div>
+            <div>
+            <p>Предложенные челенджи</p>
+                <ListOfferChallenge/>     
+            </div>
             
         </div>
 

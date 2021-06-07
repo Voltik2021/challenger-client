@@ -27,32 +27,33 @@ export default function CreateChallenge() {
         })
     }
     return (
-        <form onSubmit = {(e) => doCreateChalleng(e)}>
-            {console.log(valueInput, user)}
-            <label>
-                Название челленджа          
-                <input type = 'text' name ='title'/>
-            </label><br/>
-            <label>
-                Описание
-                <textarea name = 'description'></textarea>
-            </label> <br/>
-            <label>
-                Срок исполнения
-                <input type = 'number' name = 'term'/>
-            </label><br/>
-            <label>
-                Награда
-                <input type = 'text' name = 'prise'/>  
-            </label> <br/>        
-            <label>
-                Найти исполнителя
-                <input type = 'text' onChange = {(e) => {getName(e)}}/>                  
-            </label>
-            <button type = 'button' onClick = {getUser} >Икать</button> <br/>
+        <>            
+            <form onSubmit = {(e) => doCreateChalleng(e)}>                    
+                <label>
+                    Название челленджа          
+                    <input type = 'text' name ='title'/>
+                </label><br/>
+                <label>
+                    Описание
+                    <textarea name = 'description'></textarea>
+                </label> <br/>
+                <label>
+                    Срок исполнения
+                    <input type = 'number' name = 'term'/>
+                </label><br/>
+                <label>
+                    Награда
+                    <input type = 'text' name = 'prise'/>  
+                </label> <br/>        
+                <label>
+                    Найти исполнителя
+                    <input type = 'text' onChange = {(e) => {getName(e)}}/>                  
+                </label>
+                <button type = 'button' onClick = {getUser} >Икать</button> <br/>
 
-            <button>Создать Челендж</button>
-            {flagRedirect && <Redirect from = '/createChallenge' to = '/'/>}
-        </form>
+                <button>Создать Челендж</button>
+                {flagRedirect && <Redirect from = '/createChallenge' to = '/'/>}
+            </form>
+        </>
     )
 }
