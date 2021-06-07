@@ -20,8 +20,11 @@ export default function MainPages(){
     }
 
     let doUnlogin = () => {
-        unlogin().then(data => console.log(data))  
-        localStorage.setItem('token', '') 
+        unlogin().then(() => {
+            localStorage.setItem('token', '');
+            window.location.href = '/intedification'
+        })  
+        
     }    
 
     return(

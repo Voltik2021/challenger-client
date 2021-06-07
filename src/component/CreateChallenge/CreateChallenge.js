@@ -9,7 +9,7 @@ export default function CreateChallenge() {
 
     let getUser = () => {
 
-        searchUser(valueInput).then(data => setUser(data))
+        searchUser(valueInput).then(data => setUser(data[0]))
     }
 
     let getName = (e) => {
@@ -18,9 +18,9 @@ export default function CreateChallenge() {
     
     let doCreateChalleng = (e) => {
         e.preventDefault();
-        
+        console.log(user._id)
         let data = new FormData(e.target);
-        createChalleng(data.get('title'), data.get('description'), data.get('prise'), data.get('term'), user[0]._id, user[0].name)
+        createChalleng(data.get('title'), data.get('description'), data.get('prise'), data.get('term'), user._id||null, user.name||null)
         .then(data => {
             console.log(data);
             setFlagRedirect(true);
