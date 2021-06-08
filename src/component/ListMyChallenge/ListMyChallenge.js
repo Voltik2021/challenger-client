@@ -22,7 +22,7 @@ export default function ListMyChallenge() {
             
             <div className = 'listMyChelenge'>
                 {arrChallenge.length&&arrChallenge.map((item) => { 
-                    return <Link to = {`/myChalenge/${item._id}`} key = {item._id} className ='linkChalenge'>
+                    return <Link to = {`/myChallenge/${item._id}`} key = {item._id} className ='linkChallenge'>
                         {item.title}
                         {`   ${item.status}`}
                         </Link> })}

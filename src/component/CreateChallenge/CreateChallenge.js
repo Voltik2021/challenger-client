@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import {createChalleng, searchUser} from '../../APIServise';
+import dayjs from 'dayjs';
 
 export default function CreateChallenge() {  
     let [flagRedirect, setFlagRedirect] = useState(false)
@@ -18,9 +20,10 @@ export default function CreateChallenge() {
     
     let doCreateChalleng = (e) => {
         e.preventDefault();
-        console.log(user._id)
+        let date = dayjs().format('DD/MM/YYYY')
+        console.log(user)
         let data = new FormData(e.target);
-        createChalleng(data.get('title'), data.get('description'), data.get('prise'), data.get('term'), user._id||null, user.name||null)
+        createChalleng(data.get('title'), data.get('description'), data.get('prise'), data.get('term'), user._id||null, user.name||null, )
         .then(data => {
             console.log(data);
             setFlagRedirect(true);
@@ -28,7 +31,8 @@ export default function CreateChallenge() {
     }
     return (
         <>            
-            <form onSubmit = {(e) => doCreateChalleng(e)}>                    
+            <form onSubmit = {(e) => doCreateChalleng(e)}>
+                <Link to = '/'>Вернуться назад</Link> <br/>                   
                 <label>
                     Название челленджа          
                     <input type = 'text' name ='title'/>
@@ -50,6 +54,7 @@ export default function CreateChallenge() {
                     <input type = 'text' onChange = {(e) => {getName(e)}}/>                  
                 </label>
                 <button type = 'button' onClick = {getUser} >Икать</button> <br/>
+                <p>{Object.keys(user).length?`Участник: ${user.name}`:'Участник испытания не назначен'}</p>
 
                 <button>Создать Челендж</button>
                 {flagRedirect && <Redirect from = '/createChallenge' to = '/'/>}

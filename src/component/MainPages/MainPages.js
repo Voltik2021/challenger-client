@@ -1,23 +1,18 @@
 import React from 'react';
 import {useState, useEffect} from 'react'
 import { Redirect, Route } from 'react-router';
-import Intendification from '../intendification/intendification'
 import {unlogin, searchUser} from '../../APIServise'
-import { Link } from 'react-router-dom';
 import  ListMyChallenge  from '../ListMyChallenge/ListMyChallenge';
-import editChallenge from '../../pages/challengePages/editChallenge';
-import ListOfferChallenge from '../ListOffertChallenge/ListOffertChallenge'
+import ListOfferChallenge from '../ListOffertChallenge/ListOffertChallenge';
+import ListAcceptedChallenge from '../ListAcceptedChallenge/ListAcceptedChallenge';
+import ListExecutedChallenge from '../ListExecutedChallenge/ListExecutedChallenge';
+import UsersWhoCompletedTheTest from '../UsersWhoCompletedTheTest/UsersWhoCompletedTheTest';
+import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 
 
-export default function MainPages(){   
-    
-
-    let doSearchUser = (e) => {
-        e.preventDefault()
-        let data = new FormData(e.target)       
-        searchUser(data.get('user')).then(data => console.log(data))
-    }
+export default function MainPages(){     
 
     let doUnlogin = () => {
         unlogin().then(() => {
@@ -26,27 +21,30 @@ export default function MainPages(){
         })  
         
     }    
-
+    let date1 = dayjs().format('MMMM D, YYYY h:mm A	')
+    console.log(date1)
     return(
-        <div>
+        <div>            
             {localStorage.getItem('token')?null:<Redirect from = '/' to = '/intedification'/>}
+            <Link to ='/myAchievements'>Мои достижения</Link>
             <div>                
                 <button onClick = {doUnlogin}>Выйти</button>
-            </div>
-            <form onSubmit = {(e) => {doSearchUser(e)}} >
-                <label>
-                    Найти исполнителя
-                    <input type = 'text'  name = 'user' />
-                    <button> Искать</button>
-                </label>
-            </form>
+            </div>     
             <div>
-                <p>Мои челленджи</p>
-                <ListMyChallenge/> 
-            </div>
+                <p>Приняты к исполнению</p>
+                <ListAcceptedChallenge/> 
+            </div>            
             <div>
             <p>Предложенные челенджи</p>
                 <ListOfferChallenge/>     
+            </div>            
+            <div>
+                <p>Коллекция челенджей</p>
+                <ListMyChallenge/> 
+            </div>
+            <div>
+                <p>Мои челенджи выполнили</p>
+                <UsersWhoCompletedTheTest/> 
             </div>
             
         </div>

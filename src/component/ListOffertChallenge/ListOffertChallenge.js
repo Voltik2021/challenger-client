@@ -20,7 +20,7 @@ export default function ListOfferChallenge() {
     return (
         <div>            
             <div className = 'listOfferChelenge'>
-                {arrOfferChallenge.length&&arrOfferChallenge.map((item) => { return <Link to = {`/offerChalenge/${item._id}`} key = {item._id} className ='linkChalenge'>{item.title}</Link> })}
+                {arrOfferChallenge.length&&arrOfferChallenge.map((item) => { return <Link to = {`/offerChallenge/${item._id}`} key = {item._id} className ='linkChallenge'>{item.title}</Link> })}
             </div>
         </div>
     )

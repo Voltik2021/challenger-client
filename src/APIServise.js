@@ -62,7 +62,7 @@ export function getChallenge(id) {
     .then(res => res.json())
 }
 
-export function changeChalleng(title, description, prise, term, id) {
+export function changeChalleng(title, description, prise, term, id, id_offer_user, name_offer_user) {
     return fetch(`http://localhost:3000/UpdateChallenge?token=${localStorage.getItem('token')}&id=${id}`,{
     method: 'POST',
     headers: {'Content-type': 'application/json'},
@@ -70,7 +70,9 @@ export function changeChalleng(title, description, prise, term, id) {
         title: title,        
         description: description,
         prise: prise,
-        term: term       
+        term: term,
+        to: id_offer_user,
+        whoWasOffered: name_offer_user      
     })
     })
     .then(res => res.json())
@@ -96,5 +98,32 @@ export function getOfferChallenge() {
 
 export function refuseExecute(id) {
     return fetch(`http://localhost:3000/refuseExecute?token=${localStorage.getItem('token')}&id=${id}`)
+    .then(res => res.json())
+}
+
+export function acceptedForCompletion(id, date) {
+    return fetch(`http://localhost:3000/acceptedForCompletion?token=${localStorage.getItem('token')}&id=${id}&date=${date}`)
+    .then(res => res.json())
+}
+
+export function getAcceptedChallenge() {
+    return fetch(`http://localhost:3000/getAcceptedChallenge?token=${localStorage.getItem('token')}`)
+    .then(res => res.json())
+}
+
+
+export function executedChallenge(id, date) {
+    return fetch(`http://localhost:3000/executedChallenge?token=${localStorage.getItem('token')}&id=${id}&date=${date}`)
+    .then(res => res.json())
+}
+
+
+export function getExecutedChallenge() {
+    return fetch(`http://localhost:3000/getExecutedChallenge?token=${localStorage.getItem('token')}`)
+    .then(res => res.json())
+}
+
+export function getUserCompletedMyTest() {
+    return fetch(`http://localhost:3000/getUserCompletedMyTest?token=${localStorage.getItem('token')}`)
     .then(res => res.json())
 }
