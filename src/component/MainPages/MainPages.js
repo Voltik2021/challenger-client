@@ -9,7 +9,6 @@ import ListExecutedChallenge from '../ListExecutedChallenge/ListExecutedChalleng
 import UsersWhoCompletedTheTest from '../UsersWhoCompletedTheTest/UsersWhoCompletedTheTest';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
-
 import { Button, Divider } from 'antd';
 
 import './MainPages.css';
@@ -29,8 +28,11 @@ export default function MainPages(){
     return(
         <div className="main-page">
             {localStorage.getItem('token')?null:<Redirect from = '/' to = '/intedification'/>}
-            <div className="main-header">                
-                <Link to='/createChallenge'><Button type="primary">Создать челлендж</Button></Link>
+            <div className="main-header"> 
+                <div className="control-header">               
+                    <Link to='/createChallenge'><Button type="primary">Создать челлендж</Button></Link>
+                    <Link to='/myAchievements'><Button type="primary">Мои достижения</Button></Link>
+                </div>
                 <Button onClick = {doUnlogin}>Выйти</Button>
             </div>
             <Divider orientation="left" plain>Приняты к исполнению</Divider>
@@ -48,8 +50,7 @@ export default function MainPages(){
             <Divider orientation="left" plain>Мои челенджи выполнили</Divider>
             <div>
                 <UsersWhoCompletedTheTest/> 
-            </div>
-            <Link to ='/myAchievements'>Мои достижения</Link>
+            </div>            
         </div>
 
     )

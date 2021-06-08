@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {getUserCompletedMyTest} from '../../APIServise';
 import {Link} from 'react-router-dom';
-
+import { List} from 'antd';
 
 
 
@@ -14,7 +14,23 @@ export default function ListOfferChallenge() {
         getUserCompletedMyTest().then(data => {
             console.log(data)
             setArrAcceptedChallenge(data)})       
-    }, []);    
+    }, []);  
+    
+    return (       
+            
+            <List
+                dataSource={arrAcceptedChallenge}
+                renderItem={(item) => (
+                    <List.Item >
+                        <List.Item.Meta
+                            title={<Link to={`/executedChallenge/${item._id}`}>{item.title}</Link>}
+                            description={item.description}
+                        />
+                        <div>Выполнено {item.whoWasOffered}</div>
+                    </List.Item>
+                )}
+            />       
+    )
 
     return (
         <div>            

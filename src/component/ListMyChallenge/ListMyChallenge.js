@@ -3,7 +3,7 @@ import { Link, Route} from 'react-router-dom';
 import {createChalleng, getMyChallenge} from '../../APIServise';
 import CreateChallenge from '../CreateChallenge/CreateChallenge';
 import './listMyChelenge.css';
-
+import { List} from 'antd';
 
 
 export default function ListMyChallenge() {
@@ -14,7 +14,26 @@ export default function ListMyChallenge() {
         
         getMyChallenge().then(data => setArrChallenge(data))
        
-    }, []);    
+    }, []);  
+    
+    
+
+    return (
+        <List
+            dataSource={arrChallenge}
+            renderItem={(item) => (
+                <List.Item >
+                    <List.Item.Meta
+                        title={<Link to={`/myChallenge/${item._id}`}>{item.title}</Link>}
+                        description={item.description}
+                    />
+                    <div>{item.status === 'suggested'?`Предложен: ${item.whoWasOffered}`:null}
+                        {item.status === 'accepted'?`Принял к исполнению: ${item.whoWasOffered}`:null}
+                    </div>
+                </List.Item>
+            )}
+        />
+    )
 
     return (
         <div>
