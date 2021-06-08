@@ -3,21 +3,27 @@ import { Link, Route, Switch} from 'react-router-dom';
 import Login from '../login/login';
 import Registration from '../registration/regisration'
 
+import './identification.css';
+
+import { Space, Divider, Card } from 'antd';
+
 export default function Intendification(){    
 
     return (        
-        <div>           
-            <div>
-                <Link to ='/intedification/login'>Log in</Link>
-                <Link to = '/intedification/registration'>Registration</Link>
-            </div>
-            <Switch>
-                <Route path = '/intedification/login' component ={Login}/>                  
-                <Route path = '/intedification/registration' component ={Registration}/>
-            </Switch>
-            
-            
-            
+        <div className="identification-page">
+            <Card style={{width: '320px'}}>
+                <div className="identification-controls">
+                    <Link to ='/intedification/login'>Вход</Link>
+                    <Link to = '/intedification/registration'>Регистрация</Link>
+                </div>
+                <Divider />
+                <div>
+                    <Switch>
+                        <Route path = '/intedification/login' component ={Login}/>                  
+                        <Route path = '/intedification/registration' component ={Registration}/>
+                    </Switch>  
+                </div>
+            </Card>
         </div>
     )
 }

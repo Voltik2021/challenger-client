@@ -18,7 +18,6 @@ export default function ListMyChallenge() {
 
     return (
         <div>
-            <Link to ='/createChallenge'>Создать челендж</Link>
             
             <div className = 'listMyChelenge'>
                 {arrChallenge.length&&arrChallenge.map((item) => { 

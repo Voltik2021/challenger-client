@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './src/component/App/App';
 const node = document.querySelector('#root');
 
+import 'antd/dist/antd.css';
+
 ReactDOM.render(
 <BrowserRouter >
     <App/>

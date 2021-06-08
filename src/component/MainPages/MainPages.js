@@ -10,6 +10,9 @@ import UsersWhoCompletedTheTest from '../UsersWhoCompletedTheTest/UsersWhoComple
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 
+import { Button, Divider } from 'antd';
+
+import './MainPages.css';
 
 
 export default function MainPages(){     
@@ -24,29 +27,29 @@ export default function MainPages(){
     let date1 = dayjs().format('MMMM D, YYYY h:mm A	')
     console.log(date1)
     return(
-        <div>            
+        <div className="main-page">
             {localStorage.getItem('token')?null:<Redirect from = '/' to = '/intedification'/>}
-            <Link to ='/myAchievements'>Мои достижения</Link>
-            <div>                
-                <button onClick = {doUnlogin}>Выйти</button>
-            </div>     
+            <div className="main-header">                
+                <Link to='/createChallenge'><Button type="primary">Создать челлендж</Button></Link>
+                <Button onClick = {doUnlogin}>Выйти</Button>
+            </div>
+            <Divider orientation="left" plain>Приняты к исполнению</Divider>
             <div>
-                <p>Приняты к исполнению</p>
                 <ListAcceptedChallenge/> 
-            </div>            
+            </div>
+            <Divider orientation="left" plain>Предложенные челенджи</Divider>
             <div>
-            <p>Предложенные челенджи</p>
                 <ListOfferChallenge/>     
-            </div>            
+            </div>
+            <Divider orientation="left" plain>Коллекция челенджей</Divider>
             <div>
-                <p>Коллекция челенджей</p>
                 <ListMyChallenge/> 
             </div>
+            <Divider orientation="left" plain>Мои челенджи выполнили</Divider>
             <div>
-                <p>Мои челенджи выполнили</p>
                 <UsersWhoCompletedTheTest/> 
             </div>
-            
+            <Link to ='/myAchievements'>Мои достижения</Link>
         </div>
 
     )

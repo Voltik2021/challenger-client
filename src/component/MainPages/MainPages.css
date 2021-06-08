@@ -1,0 +1,12 @@
+.main-page {
+    box-sizing: border-box;
+    padding: 30px 15px;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+}
