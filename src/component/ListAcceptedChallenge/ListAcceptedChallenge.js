@@ -42,7 +42,7 @@ export default function ListOfferChallenge() {
                     ]}
                 >
                     <List.Item.Meta
-                        title={<Link to={`/acceptedChallenge/${item.id}`}>{item.title}</Link>}
+                        title={<Link to={`/acceptedChallenge/${item._id}`}>{item.title}</Link>}
                         description={item.description}
                     />
                 </List.Item>

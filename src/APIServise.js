@@ -63,6 +63,7 @@ export function getChallenge(id) {
 }
 
 export function changeChalleng(title, description, prise, term, id, id_offer_user, name_offer_user) {
+    console.log(id)    
     return fetch(`http://localhost:3000/UpdateChallenge?token=${localStorage.getItem('token')}&id=${id}`,{
     method: 'POST',
     headers: {'Content-type': 'application/json'},

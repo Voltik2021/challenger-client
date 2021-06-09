@@ -1,6 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {getChallenge, createChalleng, searchUser} from '../../APIServise';
 import {Link} from 'react-router-dom';
+import dayjs from 'dayjs'
+import { Form, Input, Button, DatePicker} from 'antd';
+const { TextArea, Search } = Input;
+const {RangePicker} = DatePicker;
+const dateFormat = 'YYYY/MM/DD, h:mm';
+import moment from 'moment'
 
 
 
@@ -19,67 +25,101 @@ export default function editChallenge({match}) {
         setFlag(true)       
     }  
 
-    let doCreateChalleng = (e) => {
-        e.preventDefault();       
-        let data = new FormData(e.target);
-        createChalleng(data.get('title'), data.get('description'), data.get('prise'), data.get('term'), user._id||null, user.name||null)
+    let doCreateChalleng = (values) => {             
+        let term = String(values.term._d) 
+        createChalleng(values.title, values.description, values.prise, term, user._id||null, user.name||null)
         .then(data => {
             console.log(data);
             window.location.href = '/'           
         })
     }  
 
-    let getUser = () => {
+    let getUser = (value) => {
+        
 
-        searchUser(valueInput).then(data => setUser(data[0]))
+        searchUser(value).then(data => setUser(data[0]))
     }
 
-    let getName = (e) => {
-        setValueInput(e.target.value)
-    }
+    
 
+    const layout = {
+        labelCol: { span: 12 },
+        wrapperCol: { span: 12 },
+    };
+    
+    const tailLayout = {
+        wrapperCol: { offset: 10, span: 16 },
+    };
+    let test = dayjs(challenge.term)
     
     
     return (
         <>   
                 <Link to = '/'>Вернуться на главную</Link> <br/>
-            {!flag? <div>                              
-                        <h2>Название: {challenge.title}</h2>                    
-                        <p>Описание: {challenge.description}</p>                   
-                        <p>Время на исолнения (в днях): {challenge.term}</p>               
-                        <p> Награда: {challenge.prise}</p>                      
-                        <button onClick = {addMyCollection}>Редактировать и добавить в коллекцию</button>    
+            {!flag? <div className = 'acceptedChallenge-page' >             
+                        <div>     
+                        <Link to = '/'>Вернуться на главную</Link> <br/>                           
+                            <h2>Название: {challenge.title}</h2>                    
+                            <p>Описание: {challenge.description}</p>                   
+                            <p>Выполнить до: {`${test.$D}/${test.$M}/${test.$y}, ${test.$H}.${test.$m}`}</p>               
+                            <p> Награда: {challenge.prise}</p>                      
+                            <Button type = 'primory' onClick = {addMyCollection}>Редактировать и добавить в коллекцию</Button>              
+                            
+                        </div> 
                     </div>
                     :
                     null        
         }      
-            {flag? <form onSubmit = {(e) => doCreateChalleng(e)}>
-                                           
-                        <label>
-                            Название челленджа          
-                            <input type = 'text' name ='title' defaultValue = {challenge.title}/>
-                        </label><br/>
-                        <label>
-                            Описание
-                            <textarea name = 'description' defaultValue = {challenge.description}></textarea>
-                        </label> <br/>
-                        <label>
-                            Срок исполнения
-                            <input type = 'number' name = 'term' defaultValue = {challenge.term}/>
-                        </label><br/>
-                        <label>
-                            Награда
-                            <input type = 'text' name = 'prise' defaultValue = {challenge.prise}/>  
-                        </label> <br/>        
-                        <label>
-                            Найти исполнителя
-                            <input type = 'text' onChange = {(e) => {getName(e)}}/>                  
-                        </label>
-                        <button type = 'button' onClick = {getUser} >Искать</button> <br/>
-                        <p>{Object.keys(user).length?`Участник: ${user.name}`:'Участник испытания не назначен'}</p>
+            {flag? <div className = 'editChallenge-page'>
+            {console.log(typeof(challenge.term))}
+            <div>  
+                <div className = 'editChallenge-contril'>
+                    <Link to = '/'>Вернуться назад</Link>                    
+                    </div> 
+                        {console.log(challenge.title)}
+                        
+                    <Form {...layout} onFinish={doCreateChalleng} 
+                        initialValues={{title: challenge.title, description: challenge.description, term: moment(challenge.term), prise: challenge.prise}}
+                        >
+                        <Form.Item
+                            label="Название челленджа"
+                            name="title"                        
+                        >                        
+                            <Input />
+                        </Form.Item>
 
-                        <button>Создать Челендж</button>                        
-                    </form>
+                        <Form.Item
+                            label="Описание"
+                            name="description"
+                        >                
+                            <TextArea rows={4} />
+                        </Form.Item>
+                        <Form.Item
+                            label="Срок исполнения"
+                            name="term"
+                        >                 
+                            <DatePicker showTime format={dateFormat}/>               
+                        </Form.Item>
+                        <Form.Item
+                            label="Награда"
+                            name="prise"
+                        >      
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            label="Найти исполнителя"
+                            name="search"
+                        >      
+                            <Search  allowClear onSearch={getUser} style={{ width: 200 }} />
+                        </Form.Item>
+                        <p>{Object.keys(user).length?`Участник: ${user.name}`:'Участник испытания не назначен'}</p>
+                        
+                        <Form.Item {...tailLayout}>
+                            <Button type="primary" htmlType="submit">Создать челлендж</Button>
+                        </Form.Item>
+                    </Form>
+                </div>                         
+            </div>
                     :
                     null        
         }   
@@ -87,3 +127,4 @@ export default function editChallenge({match}) {
         </>
     )
 }
+

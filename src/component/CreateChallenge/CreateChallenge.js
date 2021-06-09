@@ -2,8 +2,12 @@ import React, {useState} from 'react';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import {createChalleng, searchUser} from '../../APIServise';
-import { Form, Input, Button} from 'antd';
+import dayjs from 'dayjs'
+import { Form, Input, Button, DatePicker} from 'antd';
+import './CreateChallenge.css';
 const { TextArea, Search } = Input;
+const {RangePicker} = DatePicker;
+const dateFormat = 'YYYY/MM/DD, h:mm';
 
 
 export default function CreateChallenge() {  
@@ -12,13 +16,15 @@ export default function CreateChallenge() {
     let [user, setUser] = useState({})
 
     let getUser = (value) => {
-
+        
         searchUser(value).then(data => setUser(data[0]))
     }    
     
-    let doCreateChalleng = (values) => {     
+    let doCreateChalleng = (values) => { 
+        let term = String(values.term._d)  
+        console.log(values)
        
-        createChalleng(values.title, values.description, values.prise, values.term, user._id||null, user.name||null)
+        createChalleng(values.title, values.description, values.prise, term, user._id||null, user.name||null)
         .then(data => {
             console.log(data);
             setFlagRedirect(true);
@@ -26,86 +32,60 @@ export default function CreateChallenge() {
     }
 
     const layout = {
-        labelCol: { span: 8 },
-        wrapperCol: { span: 16 },
+        labelCol: { span: 12 },
+        wrapperCol: { span: 12 },
     };
     
     const tailLayout = {
-        wrapperCol: { offset: 8, span: 16 },
+        wrapperCol: { offset: 10, span: 16 },
     };
 
 
     return (
-        <Form {...layout} onFinish={doCreateChalleng}>
-            <Form.Item
-                label="Название челленджа"
-                name="title"
-            >
-                
-                <Input />
-            </Form.Item>
+        <div className = 'createChallenge-page'>
+            {flagRedirect?<Redirect from='/createChallenge' to = '/'/>:null}
+            <div>   
+            <Link to = '/'>Вернуться назад</Link> 
+                <Form {...layout} onFinish={doCreateChalleng}>
+                    <Form.Item
+                        label="Название челленджа"
+                        name="title"
+                    >                        
+                        <Input />
+                    </Form.Item>
 
-            <Form.Item
-                label="Описание"
-                name="description"
-            >                
-                <TextArea rows={4} />
-            </Form.Item>
-            <Form.Item
-                label="Срок исполнения"
-                name="term"
-            >      
-                <Input />
-            </Form.Item>
-            <Form.Item
-                label="Награда"
-                name="prise"
-            >      
-                <Input />
-            </Form.Item>
-            <Form.Item
-                label="найти исполнителя"
-                name="prise"
-            >      
-                <Search  allowClear onSearch={getUser} style={{ width: 200 }} />
-            </Form.Item>
-            
-            <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit">Создать Челендж</Button>
-            </Form.Item>
-
-        </Form>
-    )
-    return (
-        <>            
-            <form onSubmit = {(e) => doCreateChalleng(e)}>
-                <Link to = '/'>Вернуться назад</Link> <br/>                   
-                <label>
-                    Название челленджа          
-                    <input type = 'text' name ='title'/>
-                </label><br/>
-                <label>
-                    Описание
-                    <textarea name = 'description'></textarea>
-                </label> <br/>
-                <label>
-                    Срок исполнения
-                    <input type = 'number' name = 'term'/>
-                </label><br/>
-                <label>
-                    Награда
-                    <input type = 'text' name = 'prise'/>  
-                </label> <br/>        
-                <label>
-                    Найти исполнителя
-                    <input type = 'text' onChange = {(e) => {getName(e)}}/>                  
-                </label>
-                <button type = 'button' onClick = {getUser} >Икать</button> <br/>
-                <p>{Object.keys(user).length?`Участник: ${user.name}`:'Участник испытания не назначен'}</p>
-
-                <button>Создать Челендж</button>
-                {flagRedirect && <Redirect from = '/createChallenge' to = '/'/>}
-            </form>
-        </>
-    )
+                    <Form.Item
+                        label="Описание"
+                        name="description"
+                    >                
+                        <TextArea rows={4} />
+                    </Form.Item>
+                    <Form.Item
+                        label="Срок исполнения"
+                        name="term"
+                    >                 
+                        <DatePicker showTime format={dateFormat}/>               
+                    </Form.Item>
+                    <Form.Item
+                        label="Награда"
+                        name="prise"
+                    >      
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label="Найти исполнителя"
+                        name="search"
+                    >      
+                        <Search  allowClear onSearch={getUser} style={{ width: 200 }} />
+                    </Form.Item>
+                    <p>{Object.keys(user).length?`Участник: ${user.name}`:'Участник испытания не назначен'}</p>
+                    
+                    <Form.Item {...tailLayout}>
+                        <Button type="primary" htmlType="submit">Создать Челендж</Button>
+                    </Form.Item>
+                </Form>
+            </div>                         
+        </div>
+       
+    )   
 }

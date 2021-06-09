@@ -1,0 +1,17 @@
+
+.editChallenge-page {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+.editChallenge-contril {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 8px 0;
+}

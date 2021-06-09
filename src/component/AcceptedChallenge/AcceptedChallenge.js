@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {getChallenge, executedChallenge, refuseExecute} from '../../APIServise';
-import dayjs from 'dayjs'
-
+import dayjs from 'dayjs';
+import {Button} from 'antd';
+import './AcceptedChallenge.css'
+import {Link} from 'react-router-dom';
 
 export default function editChallenge({match}) { 
     let paramsId = match.params   
-     let [challenge, setChallenge] = useState({});     
+     let [challenge, setChallenge] = useState({});       
+    
     useEffect(() => {          
                
         getChallenge(paramsId.id).then(data => setChallenge(data))
-    }, [paramsId])
+    }, [])
 
     let executed = () => { 
         let date1 = dayjs().format('MMMM D, YYYY h:mm A	')
@@ -27,17 +30,23 @@ export default function editChallenge({match}) {
             window.location.href = '/';
         })
     }    
+    let test = dayjs(challenge.term)
+    
+
     return (
+        
         <>            
-            <div>                              
-                <h2>Название: {challenge.title}</h2>                    
-                <p>Описание: {challenge.description}</p>                   
-                <p>Время на исолнения (в днях): {challenge.term}</p>               
-                <p> Награда: {challenge.prise}</p>                      
-                <button onClick = {executed}>Я Сделал</button>
-              
-                    <button onClick ={doRefuseExecute} type = 'button'>Отказаться</button>
-                       
+            <div className = 'acceptedChallenge-page' > 
+            
+                <div>     
+                <Link to = '/'>Вернуться на главную</Link> <br/>                           
+                    <h2>Название: {challenge.title}</h2>                    
+                    <p>Описание: {challenge.description}</p>                   
+                    <p>Успел до: {`${test.$D}/${test.$M}/${test.$y}, ${test.$H}.${test.$m}`}</p>               
+                    <p> Награда: {challenge.prise}</p>                      
+                    <Button type = 'primory' onClick = {executed}>Я Сделал</Button>              
+                    <Button type = 'primory' onClick ={doRefuseExecute} type = 'button'>Отказаться</Button>
+                </div> 
             </div>
         </>
     )

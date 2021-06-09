@@ -1,5 +1,13 @@
 import React, {useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
 import {getChallenge, changeChalleng, deleteChallenge, searchUser} from '../../APIServise';
+import './EditChallenge.css'
+import { Form, Input, Button, DatePicker} from 'antd';
+const { TextArea, Search } = Input;
+const {RangePicker} = DatePicker;
+const dateFormat = 'YYYY/MM/DD, h:mm';
+import moment from 'moment'
+
 
 
 
@@ -14,19 +22,17 @@ export default function editChallenge({match}) {
         getChallenge(paramsId.id).then(data => setChallenge(data))
     }, [paramsId])
 
-    let getUser = () => {
+    let getUser = (value) => {
 
-        searchUser(valueInput).then(data => setUser(data[0]))
+        searchUser(value).then(data => setUser(data[0]))
     }
+   
+        
 
-    let getName = (e) => {
-        setValueInput(e.target.value)
-    }     
-
-    let doChangeChallenge = (e) => {
-        e.preventDefault()
-        let data = new FormData(e.target);
-        changeChalleng(data.get('title'), data.get('description'), data.get('prise'), data.get('term'), paramsId.id, user._id||null, user.name||null)
+    let doChangeChallenge = (values) => {
+        let term = String(values.term._d) 
+        console.log(values)
+        changeChalleng(values.title, values.description, values.prise, term, paramsId.id, user._id||null, user.name||null)
         .then(data => {
             console.log(data); 
             window.location.href = '/';           
@@ -36,38 +42,71 @@ export default function editChallenge({match}) {
     let doDeleteChallenge = () => {
         deleteChallenge(paramsId.id).then(() => window.location.href = '/')
     }
-    
-    return (
-        <>
-            <div>
-                <button onClick ={doDeleteChallenge}>Удалить</button>
-            </div>
-            <form onSubmit = {(e) => doChangeChallenge(e)}>            
-                <label>
-                    Название челленджа          
-                    <input type = 'text' name ='title' defaultValue = {challenge.title}/>
-                </label><br/>
-                <label>
-                    Описание
-                    <textarea name = 'description' defaultValue = {challenge.description}></textarea>
-                </label> <br/>
-                <label>
-                    Срок исполнения
-                    <input type = 'number' name = 'term' defaultValue = {challenge.term}/>
-                </label><br/>
-                <label>
-                    Награда
-                    <input type = 'text' name = 'prise' defaultValue = {challenge.prise}/>  
-                </label> <br/>   
-                <label>
-                    Найти исполнителя
-                    <input type = 'text' onChange = {(e) => {getName(e)}}/>                  
-                </label>
-                <button type = 'button' onClick = {getUser} >Икать</button> <br/>
-                <p>{Object.keys(user).length?`Участник: ${user.name}`:'Участник испытания не назначен'}</p>
 
-                <button>Редактировать Челендж</button>            
-            </form>
-        </>
-    )
+    const layout = {
+        labelCol: { span: 12 },
+        wrapperCol: { span: 12 },
+    };
+    
+    const tailLayout = {
+        wrapperCol: { offset: 10, span: 16 },
+    };
+
+    if(!Object.keys(challenge).length) return null;
+
+    return (
+        <div className = 'editChallenge-page'>
+            {console.log(typeof(challenge.term))}
+            <div>  
+                <div className = 'editChallenge-contril'>
+                <Link to = '/'>Вернуться назад</Link> 
+                <Button type="default" size={'Small'} onClick ={doDeleteChallenge}>Удалить челлендж</Button>
+                </div> 
+                    {console.log(challenge.title)}
+                    
+                <Form {...layout} onFinish={doChangeChallenge} 
+                    initialValues={{title: challenge.title, description: challenge.description, term: moment(challenge.term), prise: challenge.prise}}
+                    >
+                    <Form.Item
+                        label="Название челленджа"
+                        name="title"                        
+                    >                        
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Описание"
+                        name="description"
+                    >                
+                        <TextArea rows={4} />
+                    </Form.Item>
+                    <Form.Item
+                        label="Срок исполнения"
+                        name="term"
+                    >                 
+                        <DatePicker showTime format={dateFormat}/>               
+                    </Form.Item>
+                    <Form.Item
+                        label="Награда"
+                        name="prise"
+                    >      
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label="Найти исполнителя"
+                        name="search"
+                    >      
+                        <Search  allowClear onSearch={getUser} style={{ width: 200 }} />
+                    </Form.Item>
+                    <p>{Object.keys(user).length?`Участник: ${user.name}`:'Участник испытания не назначен'}</p>
+                    
+                    <Form.Item {...tailLayout}>
+                        <Button type="primary" htmlType="submit">Редактировать челендж</Button>
+                    </Form.Item>
+                </Form>
+            </div>                         
+        </div>
+       
+    )    
+ 
 }

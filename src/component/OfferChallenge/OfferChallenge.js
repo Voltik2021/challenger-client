@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {getChallenge, acceptedForCompletion, refuseExecute} from '../../APIServise';
 import dayjs from 'dayjs';
-
+import {Link} from 'react-router-dom';
+import {Button} from 'antd';
 
 
 export default function editChallenge({match}) { 
@@ -28,20 +29,23 @@ export default function editChallenge({match}) {
         })
     }
 
-    
+    let test = dayjs(challenge.term)
     
     return (
+        
         <>            
-            <div>                              
-                <h2>Название: {challenge.title}</h2>                    
-                <p>Описание: {challenge.description}</p>                   
-                <p>Время на исолнения (в днях): {challenge.term}</p>               
-                <p> Награда: {challenge.prise}</p>                      
-                <button onClick = {accepted}>Сделаю</button>
-              
-                    <button onClick ={doRefuseExecute} type = 'button'>Отказаться</button>
-                       
+            <div className = 'acceptedChallenge-page' > 
+            
+                <div>     
+                <Link to = '/'>Вернуться на главную</Link> <br/>                           
+                    <h2>Название: {challenge.title}</h2>                    
+                    <p>Описание: {challenge.description}</p>                   
+                    <p>Успел до: {`${test.$D}/${test.$M}/${test.$y}, ${test.$H}.${test.$m}`}</p>               
+                    <p> Награда: {challenge.prise}</p>                      
+                    <Button type = 'primory' onClick = {accepted}>Сделаю</Button>              
+                    <Button type = 'primory' onClick ={doRefuseExecute} type = 'button'>Отказаться</Button>
+                </div> 
             </div>
         </>
-    )
+    ) 
 }
