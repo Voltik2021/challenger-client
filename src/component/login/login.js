@@ -11,7 +11,6 @@ const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
 };
 
-
 export default function Login(){
     let doLogin = (values) => {
         login(values.login, values.password).then(data => { 
