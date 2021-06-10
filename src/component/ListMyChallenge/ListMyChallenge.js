@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { Link, Route} from 'react-router-dom';
-import {createChalleng, getMyChallenge} from '../../APIServise';
-import CreateChallenge from '../CreateChallenge/CreateChallenge';
+import { Link} from 'react-router-dom';
+import { getMyChallenge} from '../../APIServise';
 import './listMyChelenge.css';
 import { List} from 'antd';
 
@@ -19,7 +18,7 @@ export default function ListMyChallenge() {
     
 
     return (
-        <div className = 'listExecutedChallenge-control'>
+        <div className = 'list-control'>
             <Link to = '/'>Вернутся на главную</Link>
             <List
                 dataSource={arrChallenge}

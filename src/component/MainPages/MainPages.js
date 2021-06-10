@@ -1,20 +1,19 @@
 import React, {useState} from 'react';
-import { Redirect, Route } from 'react-router';
-import {unlogin, searchUser} from '../../APIServise'
-import  ListMyChallenge  from '../ListMyChallenge/ListMyChallenge';
+import { Redirect} from 'react-router';
+import {unlogin} from '../../APIServise'
 import ListOfferChallenge from '../ListOffertChallenge/ListOffertChallenge';
 import ListAcceptedChallenge from '../ListAcceptedChallenge/ListAcceptedChallenge';
-import UsersWhoCompletedTheTest from '../UsersWhoCompletedTheTest/UsersWhoCompletedTheTest';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { Button, Divider, Menu } from 'antd';
-import { MailOutlined, AppstoreOutlined, SettingOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import {AppstoreOutlined, EditFilled, PlusCircleOutlined, SafetyCertificateFilled} from '@ant-design/icons';
 import './MainPages.css';
+const {SubMenu} = Menu;
 
 
 export default function MainPages(){  
 
-    let {current, setCurrent} = useState('')
+    let [current, setCurrent] = useState('')
 
     let handleClick = (e) => {
         setCurrent(e.key) 
@@ -34,21 +33,26 @@ export default function MainPages(){
             {localStorage.getItem('token')?null:<Redirect from = '/' to = '/intedification'/>}
             <div className="main-header"> 
                 <div className="control-header">
-
-                              <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-                                <Menu.Item key="createChalleng" icon={<PlusCircleOutlined  twoToneColor="#52c41a"/>}>
-                                    <Link to = '/createChallenge' />
+                    <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
+                        <SubMenu key="SubMenu" icon={<EditFilled />} title="Действия">                       
+                            <Menu.Item key="createChalleng" icon={<PlusCircleOutlined  />}>
+                                <Link to = '/createChallenge' />
                                     Создать челлендж
-                                </Menu.Item>
-                                
-                                {/* <Menu.Item key="myChallengeCompleted" icon={<AppstoreOutlined />}>
-                                    <Link to = '/myChallengeCompleted' />
-                                    Мои челенджы выполнили
-                                </Menu.Item>                                 */}
-
-                              </Menu>
-                    {/* <Link to='/createChallenge'><Button type="primary">Создать челлендж</Button></Link>
-                    <Link to='/myAchievements'><Button type="primary">Мои достижения</Button></Link> */}
+                            </Menu.Item>
+                            <Menu.Item key="myChallengeCollection" icon={<AppstoreOutlined />}>
+                                <Link to = '/myChallengeCollection' />
+                                Моя коллекция челленджей
+                            </Menu.Item>
+                            <Menu.Item key="myAchievements" icon={<SafetyCertificateFilled />}>
+                                <Link to = '/myAchievements' />
+                                    Мои достижения
+                            </Menu.Item>
+                            <Menu.Item key="myChallengeCompleted" icon={<PlusCircleOutlined />}>
+                                <Link to = '/myChallengeCompleted' />
+                                    Мои челленджи выполнили
+                            </Menu.Item>
+                        </SubMenu> 
+                    </Menu>                   
                 </div>
                 <Button onClick = {doUnlogin}>Выйти</Button>
             </div>
@@ -59,22 +63,7 @@ export default function MainPages(){
             <Divider orientation="left" plain>Предложенные челенджи</Divider>
             <div>
                 <ListOfferChallenge/>     
-            </div>            
-            {/* <Divider orientation="left" plain>Мои челенджи выполнили</Divider>
-            <div>
-                <UsersWhoCompletedTheTest/> 
-            </div>             */}
-            <Menu mode="horizontal">
-                <Menu.Item key="myAchievements" icon={<AppstoreOutlined />}>
-                    <Link to = '/myAchievements' />
-                    Мои достижения
-                </Menu.Item>
-                <Menu.Item key="myChallengeCollection" icon={<AppstoreOutlined />}>
-                    <Link to = '/myChallengeCollection' />
-                    Моя коллекция челленджей
-                </Menu.Item>
-            </Menu>
-
+            </div>  
         </div>
 
     )

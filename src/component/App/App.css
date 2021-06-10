@@ -1,3 +1,14 @@
 body {
-    background-color: #ebebeb !important;
+    background-color: #ebebeb !important; 
+    padding-top: 5vh;  
+}
+
+.list-control {   
+    box-sizing: border-box;
+    padding: 30px 15px;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    background-color: white;   
+    
 }

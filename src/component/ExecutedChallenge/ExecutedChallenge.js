@@ -54,9 +54,8 @@ export default function editChallenge({match}) {
     
     
     return (
-        <div className = 'executedCallenge-page'>   
-                <Link to = '/'>Вернуться на главную</Link> <br/>
-            {!flag? <div className = 'acceptedChallenge-page' >             
+        <div className = 'acceptedChallenge-page'>                   
+            {!flag? <div className = 'offerChallenge-control' >             
                         <div>     
                         <Link to = '/'>Вернуться на главную</Link> <br/>                           
                             <h2>Название: {challenge.title}</h2>                    
@@ -70,9 +69,9 @@ export default function editChallenge({match}) {
                     :
                     null        
         }      
-            {flag? <div className = 'editChallenge-page'>
+            {flag? <div className = 'createChallenge-page'>
             {console.log(typeof(challenge.term))}
-            <div>  
+            <div className = 'createChallenge-page-control'>  
                 <div className = 'editChallenge-contril'>
                     <Link to = '/'>Вернуться назад</Link>                    
                     </div> 

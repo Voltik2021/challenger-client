@@ -19,7 +19,7 @@ export default function ListOfferChallenge() {
     }, []);    
 
     return (
-        <div className = 'listExecutedChallenge-control'>
+        <div className = 'list-control'>
             <Link to = '/'>Вернутся на главную</Link>
             <List
                 dataSource={arrAcceptedChallenge}

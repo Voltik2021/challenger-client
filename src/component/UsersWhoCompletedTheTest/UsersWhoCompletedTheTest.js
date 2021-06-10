@@ -17,7 +17,7 @@ export default function ListOfferChallenge() {
     }, []);  
     
     return (       
-            
+        <div className = 'list-control'>
             <List
                 dataSource={arrAcceptedChallenge}
                 renderItem={(item) => (
@@ -29,14 +29,8 @@ export default function ListOfferChallenge() {
                         <div>Выполнено {item.whoWasOffered}</div>
                     </List.Item>
                 )}
-            />       
+            /> 
+        </div>      
     )
-
-    return (
-        <div>            
-            <div className = 'listOfferChellenge'>
-                {arrAcceptedChallenge.length&&arrAcceptedChallenge.map((item) => { return <Link to = {`/UserCompletedMyTest/${item._id}`} key = {item._id} className ='linkChallenge'>{item.whoWasOffered} {item.title}</Link> })}
-            </div>
-        </div>
-    )
+   
 }
