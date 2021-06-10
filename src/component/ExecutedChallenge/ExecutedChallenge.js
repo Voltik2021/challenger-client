@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 import dayjs from 'dayjs'
 import { Form, Input, Button, DatePicker} from 'antd';
 const { TextArea, Search } = Input;
-const {RangePicker} = DatePicker;
 const dateFormat = 'YYYY/MM/DD, h:mm';
 import moment from 'moment'
 

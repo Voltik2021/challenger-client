@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {getAcceptedChallenge, executedChallenge, refuseExecute} from '../../APIServise';
+import './ListAcceptedChallenge.css';
 
 import {Link} from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -11,8 +12,7 @@ export default function ListOfferChallenge() {
     
     useEffect(() => {        
         
-        getAcceptedChallenge().then(data => {
-            console.log(data)
+        getAcceptedChallenge().then(data => {           
             setArrAcceptedChallenge(data)})       
     }, []);
 
@@ -43,7 +43,7 @@ export default function ListOfferChallenge() {
                 >
                     <List.Item.Meta
                         title={<Link to={`/acceptedChallenge/${item._id}`}>{item.title}</Link>}
-                        description={item.description}
+                        description={item.description}                                              
                     />
                 </List.Item>
             )}
