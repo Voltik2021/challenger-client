@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, Route, Switch} from 'react-router-dom';
 import Login from '../Login/Login';
-import Registration from '../Registration/Regisration';
+import Registration from '../Registration/Registration';
 
-import './identification.css';
+import './Identification.css';
 
 import { Space, Divider, Card } from 'antd';
 
