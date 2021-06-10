@@ -9,6 +9,8 @@ import AcceptedChallenge from '../AcceptedChallenge/AcceptedChallenge';
 import ExecutedChallenge from '../ExecutedChallenge/ExecutedChallenge';
 import UserComplited from '../UserComplited/UserComplited';
 import ListExecutedChallenge from '../ListExecutedChallenge/ListExecutedChallenge';
+import ListMyChallenge from '../ListMyChallenge/ListMyChallenge';
+import UsersWhoCompletedTheTest from '../UsersWhoCompletedTheTest/UsersWhoCompletedTheTest';
 
 export default function App(){  
 
@@ -23,6 +25,8 @@ export default function App(){
             <Route path = '/executedChallenge/:id' component = {ExecutedChallenge} />
             <Route path = '/UserCompletedMyTest/:id' component = {UserComplited} />
             <Route path = '/myAchievements' component = {ListExecutedChallenge} />
+            <Route path = '/myChallengeCollection' component = {ListMyChallenge} />
+            <Route path = '/myChallengeCompleted' component = {UsersWhoCompletedTheTest} />
         </Switch>
 
     )
