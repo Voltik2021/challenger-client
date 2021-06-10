@@ -3,4 +3,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
+}
+.createChallenge-page-control {
+    background-color: white;
+    padding: 45px;
 }

@@ -128,3 +128,9 @@ export function getUserCompletedMyTest() {
     return fetch(`https://zchallenger-api.herokuapp.com/getUserCompletedMyTest?token=${localStorage.getItem('token')}`)
     .then(res => res.json())
 }
+
+
+export function expiredChallenge(id) {
+    return fetch(`https://zchallenger-api.herokuapp.com/expiredChallenge?token=${localStorage.getItem('token')}&id=${id}`)
+    .then(res => res.json())
+}

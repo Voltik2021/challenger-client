@@ -5,6 +5,11 @@
     justify-content: center;
 }
 
+.acceptedChallenge-control {
+    background-color: white;
+    padding: 45px;
+}
+
 .time-color {
     color: red;
 }

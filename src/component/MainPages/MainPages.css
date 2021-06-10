@@ -1,9 +1,10 @@
 .main-page {
     box-sizing: border-box;
-    padding: 30px 15px;
+    padding: 30px 30px 50px;
     width: 100%;
     max-width: 720px;
     margin: 0 auto;
+    background-color: #fff;
 }
 
 .main-header {

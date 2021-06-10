@@ -44,7 +44,7 @@ export default function CreateChallenge() {
     return (
         <div className = 'createChallenge-page'>
             {flagRedirect?<Redirect from='/createChallenge' to = '/'/>:null}
-            <div>   
+            <div className = 'createChallenge-page-control'>   
             <Link to = '/'>Вернуться назад</Link> 
                 <Form {...layout} onFinish={doCreateChalleng}>
                     <Form.Item

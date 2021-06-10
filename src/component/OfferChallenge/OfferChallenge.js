@@ -3,6 +3,7 @@ import {getChallenge, acceptedForCompletion, refuseExecute} from '../../APIServi
 import dayjs from 'dayjs';
 import {Link} from 'react-router-dom';
 import {Button} from 'antd';
+import './OfferChallenge.css'
 
 
 export default function editChallenge({match}) { 
@@ -36,7 +37,7 @@ export default function editChallenge({match}) {
         <>            
             <div className = 'acceptedChallenge-page' > 
             
-                <div>     
+                <div className = 'offerChallenge-control'>     
                 <Link to = '/'>Вернуться на главную</Link> <br/>                           
                     <h2>Название: {challenge.title}</h2>                    
                     <p>Описание: {challenge.description}</p>                   

@@ -57,7 +57,7 @@ export default function editChallenge({match}) {
     return (
         <div className = 'editChallenge-page'>
             {console.log(typeof(challenge.term))}
-            <div>  
+            <div className = 'editChallenge-color'>  
                 <div className = 'editChallenge-contril'>
                 <Link to = '/'>Вернуться назад</Link> 
                 <Button type="default" size={'Small'} onClick ={doDeleteChallenge}>Удалить челлендж</Button>

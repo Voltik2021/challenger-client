@@ -13,8 +13,8 @@ export default function editChallenge({match}) {
     useEffect(() => {          
                
         getChallenge(paramsId.id).then(data => {
-            let test = dayjs().isAfter(dayjs(data.term))
-            setCheckTime(test)
+            let timeChallenge = dayjs().isAfter(dayjs(data.term))
+            setCheckTime(timeChallenge)
             setChallenge(data)})
     }, [])
 
@@ -42,7 +42,7 @@ export default function editChallenge({match}) {
         <>            
             <div className = 'acceptedChallenge-page' > 
             
-                <div>     
+                <div className = 'acceptedChallenge-control'>     
                 <Link to = '/'>Вернуться на главную</Link> <br/>                           
                     <h2>Название: {challenge.title}</h2>                    
                     <p>Описание: {challenge.description}</p>                   

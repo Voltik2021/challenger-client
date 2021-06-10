@@ -7,11 +7,14 @@
 }
 
 
-
-
-
 .editChallenge-contril {
     display: flex;
     justify-content: space-between;
     margin: 0 0 8px 0;
+    
+}
+
+.editChallenge-color{
+    background-color: white;
+    padding: 45px;
 }

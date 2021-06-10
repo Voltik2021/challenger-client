@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {getChallenge, createChalleng, searchUser} from '../../APIServise';
 import {Link} from 'react-router-dom';
 import dayjs from 'dayjs'
+import './ExecutedChallenge.css'
 import { Form, Input, Button, DatePicker} from 'antd';
 const { TextArea, Search } = Input;
 const dateFormat = 'YYYY/MM/DD, h:mm';
@@ -53,7 +54,7 @@ export default function editChallenge({match}) {
     
     
     return (
-        <>   
+        <div className = 'executedCallenge-page'>   
                 <Link to = '/'>Вернуться на главную</Link> <br/>
             {!flag? <div className = 'acceptedChallenge-page' >             
                         <div>     
@@ -123,7 +124,7 @@ export default function editChallenge({match}) {
                     null        
         }   
             
-        </>
+        </div>
     )
 }
 

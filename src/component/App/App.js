@@ -12,6 +12,8 @@ import ListExecutedChallenge from '../ListExecutedChallenge/ListExecutedChalleng
 import ListMyChallenge from '../ListMyChallenge/ListMyChallenge';
 import UsersWhoCompletedTheTest from '../UsersWhoCompletedTheTest/UsersWhoCompletedTheTest';
 
+import "./App.css";
+
 export default function App(){  
 
     return(

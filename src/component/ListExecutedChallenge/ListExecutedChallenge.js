@@ -35,14 +35,5 @@ export default function ListOfferChallenge() {
             />
         </div>
     )
-
-
-    return (
-        <div>  
-            <Link to = '/'>Вернуться на главную</Link>          
-            <div className = 'listOfferChellenge'>
-                {arrAcceptedChallenge.length&&arrAcceptedChallenge.map((item) => { return <Link to = {`/executedChallenge/${item._id}`} key = {item._id} className ='linkChallenge'>{item.title}</Link> })}
-            </div>
-        </div>
-    )
+ 
 }
