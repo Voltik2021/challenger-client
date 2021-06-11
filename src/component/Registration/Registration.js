@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {Redirect} from 'react-router-dom'
 import {registation} from '../../APIServise'
 import { Form, Input, Button } from 'antd';
 
@@ -12,15 +13,17 @@ const tailLayout = {
 };
 
 export default function Registration(){
+    let [flag, setFlag] = useState(false)
 
     let doRegistration = ({ login, password, name }) => {
         registation(login, password, name)
-        .then(data => console.log(data))
+        .then(() => setFlag(true))
         .catch(err => console.log(err))        
     }
 
     return (
         <Form {...layout} onFinish={doRegistration}>
+            {flag?<Redirect from='/intedification/registration' to = '/intedification/login'/>:null}
             <Form.Item
                 label="Логин"
                 name="login"
