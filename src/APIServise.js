@@ -79,8 +79,8 @@ export function changeChalleng(title, description, prise, term, id, id_offer_use
     .then(res => res.json())
 }
 
-export function searchUser(name) {
-    return fetch(`https://zchallenger-api.herokuapp.com/searchUser?token=${localStorage.getItem('token')}&name=${name}`)
+export function searchUser(login) {
+    return fetch(`https://zchallenger-api.herokuapp.com/searchUser?token=${localStorage.getItem('token')}&login=${login}`)
     .then(res => res.json())
 }
 
