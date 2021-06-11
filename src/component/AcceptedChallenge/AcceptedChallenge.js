@@ -34,7 +34,7 @@ export default function editChallenge({match}) {
             window.location.href = '/';
         })
     }    
-    let test = dayjs(challenge.term)
+    let dateFormat = dayjs(challenge.term)
     
 
     return (
@@ -46,7 +46,7 @@ export default function editChallenge({match}) {
                 <Link to = '/'>Вернуться на главную</Link> <br/>                           
                     <h2>Название: {challenge.title}</h2>                    
                     <p>Описание: {challenge.description}</p>                   
-                    <p className = {checkTime?'time-color':''}>Успеть до: {`${test.$D}/${test.$M}/${test.$y}, ${test.$H}.${test.$m}`}</p>               
+                    <p className = {checkTime?'time-color':''}>Успеть до: {`${dateFormat.$D}/${dateFormat.$M}/${dateFormat.$y}, ${dateFormat.$H}.${dateFormat.$m}`}</p>               
                     <p> Награда: {challenge.prise}</p>                      
                     {!checkTime?<Button type = 'primory' onClick = {executed}>Я Сделал</Button>:null}              
                     {!checkTime?<Button type = 'primory' onClick ={doRefuseExecute} type = 'button'>Отказаться</Button>:null}

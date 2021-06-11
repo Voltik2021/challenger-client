@@ -18,6 +18,7 @@ export default function ListOfferChallenge() {
     
     return (       
         <div className = 'list-control'>
+            <Link to = '/'>Вернутся на главную</Link>
             <List
                 dataSource={arrAcceptedChallenge}
                 renderItem={(item) => (

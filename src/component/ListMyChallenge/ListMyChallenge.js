@@ -28,8 +28,11 @@ export default function ListMyChallenge() {
                             title={<Link to={`/myChallenge/${item._id}`}>{item.title}</Link>}
                             description={item.description}
                         />
-                        <div>{item.status === 'suggested'?`Предложен: ${item.whoWasOffered}`:null}
+                        <div>
+                            {item.status === 'suggested'?`Предложен: ${item.whoWasOffered}`:null}
                             {item.status === 'accepted'?`Принял к исполнению: ${item.whoWasOffered}`:null}
+                            {item.status === 'expired'?`${item.whoWasOffered} не успел выполнить`:null}
+                            {item.status === 'rejected'?`${item.whoWasOffered} отказался выполнять`:null}
                         </div>
                     </List.Item>
                 )}

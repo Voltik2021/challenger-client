@@ -25,9 +25,12 @@ export default function MainPages(){
             window.location.href = '/intedification'
         })  
         
-    }    
+    }   
+    
+    
     let date1 = dayjs().format('MMMM D, YYYY h:mm A	')
     console.log(date1)
+    console.log(dayjs(date1).subtract(1, 'day'))
     return(
         <div className="main-page">
             {localStorage.getItem('token')?null:<Redirect from = '/' to = '/intedification'/>}

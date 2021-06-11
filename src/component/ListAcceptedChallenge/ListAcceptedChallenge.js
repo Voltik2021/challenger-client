@@ -38,7 +38,10 @@ export default function ListOfferChallenge() {
     return (
         <List
             dataSource={arrAcceptedChallenge}
-            renderItem={(item) => ( !dayjs().isAfter(dayjs(item.term))?
+            renderItem={(item) => { 
+                let dateFormat = dayjs(item.term)   
+                let dailyWarning = dayjs().isAfter(dayjs(dayjs(dateFormat).subtract(1, 'day')))                             
+                return !dayjs().isAfter(dayjs(item.term))?
                 <List.Item
                     actions={[
                         <Button onClick={() => { executed(item._id) }}>Выполнил</Button>,
@@ -46,7 +49,7 @@ export default function ListOfferChallenge() {
                     ]}
                 >
                     <List.Item.Meta
-                        title={<Link to={`/acceptedChallenge/${item._id}`}>{item.title}</Link>}
+                        title={<Link to={`/acceptedChallenge/${item._id}` } style={{ "color": `${dailyWarning?"blueviolet":null}` }}>{item.title}{`.${dailyWarning?' (Остался 1 день)':null}`}</Link>}
                         description={item.description}                                              
                     />                      
                 </List.Item>
@@ -56,20 +59,14 @@ export default function ListOfferChallenge() {
                         <Button onClick={() => { doExpiredChallenge(item._id) }}> Я не успел</Button>                        
                     ]}
                 >
-                    <List.Item.Meta
-                        title={<Link to={`/acceptedChallenge/${item._id}`}>{item.title}</Link>}
-                        description={item.description}                                              
+                    <List.Item.Meta 
+                        
+                        title={<Link to={`/acceptedChallenge/${item._id}`} style={{ "color": "red" }} >{item.title}. (Надо было успеть до: {` ${dateFormat.format('DD/MM/YYYY HH:mm')}`})</Link>}
+                        description={item.description}  
+                                                                    
                     />                      
                 </List.Item>
-            )}
+            }}
         />
-    )
-
-    return (
-        <div>            
-            <div className = 'listOfferChellenge'>
-                {arrAcceptedChallenge.length&&arrAcceptedChallenge.map((item) => { return <Link to = {`/acceptedChallenge/${item._id}`} key = {item._id} className ='linkChallenge'>{item.title}</Link> })}
-            </div>
-        </div>
-    )
+    ) 
 }
