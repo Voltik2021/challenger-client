@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {getChallenge, createChalleng, searchUser} from '../../APIServise';
+import {getChallenge, createChalleng, searchUser, getUserId} from '../../APIServise';
 import {Link} from 'react-router-dom';
 import dayjs from 'dayjs'
 import './ExecutedChallenge.css'
-import { Form, Input, Button, DatePicker} from 'antd';
+import { Form, Input, Button, DatePicker, Select} from 'antd';
+const { Option } = Select;
 const { TextArea, Search } = Input;
 const dateFormat = 'YYYY/MM/DD, h:mm';
 import moment from 'moment'
@@ -15,7 +16,9 @@ export default function editChallenge({match}) {
      let [challenge, setChallenge] = useState({}); 
      let [flag, setFlag] = useState(false) 
      let [valueInput, setValueInput] = useState('')
-     let [user, setUser] = useState({})   
+     let [users, setUsers] = useState([])   
+     let [oneUser, setOneUser] = useState({})
+
     useEffect(() => {          
                
         getChallenge(paramsId.id).then(data => setChallenge(data))
@@ -27,17 +30,26 @@ export default function editChallenge({match}) {
 
     let doCreateChalleng = (values) => {             
         let term = String(values.term._d) 
-        createChalleng(values.title, values.description, values.prise, term, user._id||null, user.name||null)
+        createChalleng(values.title, values.description, values.prise, term, oneUser._id||null, oneUser.name||null)
         .then(data => {
             console.log(data);
             window.location.href = '/'           
         })
     }  
 
-    let getUser = (value) => {
-        
+    let getUser = (value) => {        
 
-        searchUser(value).then(data => setUser(data[0]))
+        searchUser(value).then(data => {
+            console.log(data)
+            setUsers(data)})
+    }
+
+    let changeValue = (value, q) => {
+        console.log(q)
+        setValueInput(value)
+        getUserId(q.key).then(data => {
+            console.log(data, '2222222')
+            setOneUser(data)})
     }
 
     
@@ -52,7 +64,7 @@ export default function editChallenge({match}) {
     };
     let test = dayjs(challenge.term)
     
-    
+    const options = users.map(item => <Option key={item._id} value= {`логин: ${item.login} имя:${item.name}`}> {'логин: '} {item.login}<br/> {`имя:${item.name}`}</Option>);
     return (
         <div className = 'acceptedChallenge-page'>                   
             {!flag? <div className = 'offerChallenge-control' >             
@@ -109,9 +121,23 @@ export default function editChallenge({match}) {
                             label="Найти исполнителя"
                             name="search"
                         >      
-                            <Search  allowClear onSearch={getUser} style={{ width: 200 }} />
+                            <Select 
+                            dropdownMatchSelectWidth = {200} 
+                            listHeight={250}
+                            showSearch
+                            value={valueInput}
+                            placeholder={'введите имя или логин'}
+                            // style={}
+                            defaultActiveFirstOption={false}
+                            showArrow={false}
+                            filterOption={false}
+                            onSearch={getUser}
+                            onChange={changeValue}
+                            notFoundContent={null}
+                        >{options}</Select>
+
                         </Form.Item>
-                        <p>{Object.keys(user).length?`Участник: ${user.name}`:'Участник испытания не назначен'}</p>
+                         <p>{valueInput?`Участник: ${valueInput}`:'Участник испытания не назначен'}</p>
                         
                         <Form.Item {...tailLayout}>
                             <Button type="primary" htmlType="submit">Создать челлендж</Button>

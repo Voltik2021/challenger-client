@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-import {getChallenge, changeChalleng, deleteChallenge, searchUser} from '../../APIServise';
+import {getChallenge, changeChalleng, deleteChallenge, searchUser, getUserId} from '../../APIServise';
 import './EditChallenge.css'
-import { Form, Input, Button, DatePicker} from 'antd';
+import { Form, Input, Button, DatePicker,  Select} from 'antd';
+const { Option } = Select;
 const { TextArea, Search } = Input;
 const {RangePicker} = DatePicker;
 const dateFormat = 'YYYY/MM/DD, h:mm';
@@ -15,7 +16,8 @@ export default function editChallenge({match}) {
     let paramsId = match.params   
      let [challenge, setChallenge] = useState({});
      let [valueInput, setValueInput] = useState('')
-     let [user, setUser] = useState({})
+     let [users, setUsers] = useState([])
+     let [oneUser, setOneUser] = useState({})
    
     useEffect(() => {          
                
@@ -24,15 +26,24 @@ export default function editChallenge({match}) {
 
     let getUser = (value) => {
 
-        searchUser(value).then(data => setUser(data[0]))
+        searchUser(value).then(data => {
+            console.log(data)
+            setUsers(data)})
     }
    
+    let changeValue = (value, q) => {
+        console.log(q)
+        setValueInput(value)
+        getUserId(q.key).then(data => {
+            console.log(data, '2222222')
+            setOneUser(data)})
+    }
         
 
     let doChangeChallenge = (values) => {
         let term = String(values.term._d) 
         console.log(values)
-        changeChalleng(values.title, values.description, values.prise, term, paramsId.id, user._id||null, user.name||null)
+        changeChalleng(values.title, values.description, values.prise, term, paramsId.id, oneUser._id||null, oneUser.name||null)
         .then(data => {
             console.log(data); 
             window.location.href = '/';           
@@ -54,6 +65,7 @@ export default function editChallenge({match}) {
 
     if(!Object.keys(challenge).length) return null;
 
+    const options = users.map(item => <Option key={item._id} value= {`логин: ${item.login} имя:${item.name}`}> {'логин: '} {item.login}<br/> {`имя:${item.name}`}</Option>);
     return (
         <div className = 'editChallenge-page'>
             {console.log(typeof(challenge.term))}
@@ -96,9 +108,22 @@ export default function editChallenge({match}) {
                         label="Найти исполнителя"
                         name="search"
                     >      
-                        <Search  allowClear onSearch={getUser} style={{ width: 200 }} />
+                        <Select 
+                            dropdownMatchSelectWidth = {200} 
+                            listHeight={250}
+                            showSearch
+                            value={valueInput}
+                            placeholder={'введите имя или логин'}
+                            // style={}
+                            defaultActiveFirstOption={false}
+                            showArrow={false}
+                            filterOption={false}
+                            onSearch={getUser}
+                            onChange={changeValue}
+                            notFoundContent={null}
+                        >{options}</Select>
                     </Form.Item>
-                    <p>{Object.keys(user).length?`Участник: ${user.name}`:'Участник испытания не назначен'}</p>
+                    <p>{valueInput?`Участник: ${valueInput}`:'Участник испытания не назначен'}</p>
                     
                     <Form.Item {...tailLayout}>
                         <Button type="primary" htmlType="submit">Редактировать челендж</Button>

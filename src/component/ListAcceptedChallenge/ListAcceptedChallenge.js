@@ -49,7 +49,7 @@ export default function ListOfferChallenge() {
                     ]}
                 >
                     <List.Item.Meta
-                        title={<Link to={`/acceptedChallenge/${item._id}` } style={{ "color": `${dailyWarning?"blueviolet":null}` }}>{item.title}{`.${dailyWarning?' (Остался 1 день)':null}`}</Link>}
+                        title={<Link to={`/acceptedChallenge/${item._id}` } style={{ "color": `${dailyWarning?"blueviolet":null}` }}>{item.title}{`.${dailyWarning?' (Остался 1 день)':''}`}</Link>}
                         description={item.description}                                              
                     />                      
                 </List.Item>

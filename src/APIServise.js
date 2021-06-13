@@ -134,3 +134,9 @@ export function expiredChallenge(id) {
     return fetch(`https://zchallenger-api.herokuapp.com/expiredChallenge?token=${localStorage.getItem('token')}&id=${id}`)
     .then(res => res.json())
 }
+
+
+export function getUserId(id) {
+    return fetch(`https://zchallenger-api.herokuapp.com/getUserId?token=${localStorage.getItem('token')}&id=${id}`)
+    .then(res => res.json())
+}
